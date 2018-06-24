@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 //1. import Login from './Login';
 import {
-    StyleSheet, KeyboardAvoidingView, View, Image, Text, TextInput, Button
+    KeyboardAvoidingView, View, Image, Text, TextInput, Button
 } from 'react-native';
+
+import styles from '../styles/styles-register'
 
 const img = require('../assets/TodoList.png');
 
@@ -38,37 +40,4 @@ export default class Register extends Component {
             </KeyboardAvoidingView>
         );
     }
-
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center'
-    },
-    topView: {
-        flex: 0.20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 25
-    },
-    img: {
-        width: 50,
-        height: 50
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: 20
-    },
-    bottomView: {
-        flex: 1,
-        flexDirection: 'column',
-        paddingRight: 20,
-        paddingLeft: 20
-    },
-    input: {
-        marginBottom: 20
-    }
-});

@@ -1,9 +1,11 @@
 
 import React, { Component } from 'react';
 import {
-    KeyboardAvoidingView, StyleSheet, View,
+    KeyboardAvoidingView, View,
     Image, TextInput, Button, Text, SafeAreaView, Alert, ScrollView
 } from 'react-native';
+
+import styles from '../styles/styles-login'
 
 const img = require('../assets/TodoList.png');
 
@@ -54,35 +56,4 @@ export default class Login extends Component {
             </ScrollView>
         );
     }
-}
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column'
-    },
-    topView: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 50
-    },
-    img: {
-        width: 200,
-        height: 200
-    },
-    bottomView: {
-        flexDirection: 'column',
-        paddingRight: 20,
-        paddingLeft: 20
-    },
-    input: {
-        marginBottom: 20
-    },
-    textConteiner: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 20
-    },
-    textRegister: {
-        fontWeight: 'bold'
-    }
-});
+};
