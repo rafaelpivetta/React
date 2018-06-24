@@ -4,3 +4,4 @@
 
   - React Native
     - Atividade tela de registro
+    - Separar os Estilos
