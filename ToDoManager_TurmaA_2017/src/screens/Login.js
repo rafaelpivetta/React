@@ -5,11 +5,15 @@ import {
     Image, TextInput, Button, Text, SafeAreaView, Alert, ScrollView
 } from 'react-native';
 
-import styles from '../styles/styles-login'
+import styles from '../styles/styles-login';
 
 const img = require('../assets/TodoList.png');
 
 export default class Login extends Component {
+
+    static navigationOptions = {
+        header: null,
+    };
 
     constructor(props) {
         super(props);
@@ -44,10 +48,11 @@ export default class Login extends Component {
                         secureTextEntry={true} 
                         onChangeText={(password) => this.setState({ password })}/>
                     <Button title='Sign In'
-                        onPress={() => Alert.alert(`Email: ${this.state.email} \nPassword: ${this.state.password}`)} />
+                        onPress={async () => await this.signInAsync()} />
                     <View style={styles.textConteiner}>
                         <Text>Not a member? Let's </Text>
-                        <Text style={styles.textRegister}>
+                        <Text style={styles.textRegister}
+                            onPress={() => this.props.navigation.navigate('pageRegister')}>
                             Register.
                         </Text>
                     </View>
@@ -56,4 +61,20 @@ export default class Login extends Component {
             </ScrollView>
         );
     }
+
+    async signInAsync() {
+        try{
+            const user = await signInOnFirebaseAsync(
+                this.state.email,
+                this.state.password
+            );
+
+            const message = `User ${user.email} authenticated`;
+            Alert.alert('User Authenticated', message);
+        }catch (error){
+            Alert.alert('Login failed', error.message);
+        }
+    }
 };
+
+import { signInOnFirebaseAsync } from '../services/FirebaseApi';

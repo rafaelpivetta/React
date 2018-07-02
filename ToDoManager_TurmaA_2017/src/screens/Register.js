@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 //1. import Login from './Login';
 import {
-    KeyboardAvoidingView, View, Image, Text, TextInput, Button
+    KeyboardAvoidingView, View, Image, Text, TextInput, Button, Alert
 } from 'react-native';
 
-import styles from '../styles/styles-register'
+import { createUserOnFirebaseAsync } from '../services/FirebaseApi';
+import { NavigationActions } from 'react-navigation';
+
+import styles from '../styles/styles-register';
 
 const img = require('../assets/TodoList.png');
 
 export default class Register extends Component {
+
+    static navigationOptions = {
+        title: 'Register'
+    }
 
     constructor(props) {
         super(props);
@@ -34,10 +41,31 @@ export default class Register extends Component {
                             this.setState({ email: text })} />
                     <TextInput style={styles.input} placeholder='Password'
                         secureTextEntry={true} onChangeText={(text) => this.setState({ password: text })} />
-                    <Button title='Register User' onPress={() =>
-                        alert('Email: '+this.state.email +' Password: '+this.state.password)} />
+                    <Button title='Register User'
+                            onPress={async () => await this.createUserAsync()} />
                 </View>
             </KeyboardAvoidingView>
         );
     }
+
+    async createUserAsync() {
+        try {
+            const user = await createUserOnFirebaseAsync(
+                this.state.email, 
+                this.state.password
+            );
+            const message = `User ${user.email} has been created!`;
+            Alert.alert('User Created', message, [{
+                text: 'Ok', onPress: () => {
+                    const backAction = NavigationActions.back();
+                    this.props.navigation.dispatch(backAction);
+                }
+            }]);
+
+            //Implementar funcionalidade para voltar para a tela anterior
+        }catch (error){
+            Alert.alert('Create User Failed', error.message);
+        }
+    }
+
 }
